@@ -24,8 +24,8 @@ See [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) for all commands.
 
 ## Services
 
-- **Backend:** http://localhost:8000 (FastAPI)
-- **Client:** http://localhost:3000 (Go)
+- **Backend:** http://localhost:8000 (FastAPI, auto-reloads on changes)
+- **Client:** http://localhost:3000 (Go, auto-reloads on changes)
 
 ## More Information
 

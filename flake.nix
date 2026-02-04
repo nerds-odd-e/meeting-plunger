@@ -31,6 +31,7 @@
             
             # Golang
             go
+            air  # Go live reload
             
             # Node.js and pnpm for e2e tests
             nodejs_22
@@ -57,13 +58,13 @@
             echo "  pnpm:     $(pnpm --version)"
             echo ""
             echo "Quick start:"
-            echo "  pnpm sut      # Start backend + client"
+            echo "  pnpm sut      # Start backend + client (both auto-reload)"
             echo "  pnpm e2e      # Run e2e tests"
             echo ""
             echo "First time setup:"
             echo "  pnpm install && pnpm e2e:install"
             echo ""
-            echo "More info: QUICK_START.md"
+            echo "More info: docs/QUICK_START.md"
             
             # Set Playwright browsers path
             export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}

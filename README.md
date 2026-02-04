@@ -68,8 +68,8 @@ See [docs/QUICK_START.md](docs/QUICK_START.md) for more details.
 
 ## Technology Stack
 
-- **Backend**: Python 3.11, FastAPI, running on Kubernetes
-- **Client**: Golang, CLI + HTTP server
+- **Backend**: Python 3.11, FastAPI with auto-reload (uvicorn)
+- **Client**: Golang, CLI + HTTP server with auto-reload (air)
 - **E2E Testing**: Playwright + Cucumber (Gherkin), managed with pnpm
 - **Infrastructure**: Kubernetes (k8s)
 - **AI Integration**: OpenAI API

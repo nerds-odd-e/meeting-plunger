@@ -43,6 +43,8 @@ ENV/
 *.out
 go.work
 vendor/
+client/tmp/
+client/build-errors.log
 
 # Nix
 result
