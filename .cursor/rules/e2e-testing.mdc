@@ -1,54 +1,29 @@
-# E2E Tests
+---
+description: E2E testing conventions using Playwright and Cucumber (Gherkin)
+globs: e2e/**/*
+alwaysApply: false
+---
+
+# E2E Testing Guide
 
 End-to-end tests for Meeting Plunger using Playwright and Cucumber (Gherkin).
 
-## Prerequisites
-
-Make sure you're in the Nix development environment:
-
-```bash
-nix develop
-```
-
-## Setup
-
-Install dependencies:
-
-```bash
-cd e2e
-pnpm install
-```
-
 ## Running Tests
 
-Make sure both the backend and client services are running before executing the tests.
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-uvicorn main:app --reload
-```
-
-**Terminal 2 - Client:**
-```bash
-cd client
-go run . serve
-```
-
-**Terminal 3 - E2E Tests:**
+All commands should be run from the project root with the `nix develop -c` prefix:
 
 ```bash
-cd e2e
-
 # Run all tests (headless)
-pnpm test
+nix develop -c pnpm e2e
 
 # Run tests in headed mode (see the browser)
-pnpm test:headed
+nix develop -c pnpm e2e:headed
 
 # Run tests in debug mode
-pnpm test:debug
+nix develop -c pnpm e2e:debug
 ```
+
+**Note**: Both backend and client services must be running. Use `nix develop -c pnpm sut` to start both services.
 
 ## Project Structure
 
@@ -65,11 +40,9 @@ e2e/
 └── package.json        # Dependencies and test scripts
 ```
 
-## Writing Tests
+## Writing Feature Files
 
-### Feature Files
-
-Feature files use Gherkin syntax and are located in `features/`:
+Feature files use Gherkin syntax in `e2e/features/`:
 
 ```gherkin
 Feature: My Feature
@@ -83,9 +56,9 @@ Feature: My Feature
     Then I should see the result
 ```
 
-### Step Definitions
+## Writing Step Definitions
 
-Step definitions are JavaScript files in `steps/` that implement the Gherkin steps:
+Step definitions are JavaScript files in `e2e/steps/`:
 
 ```javascript
 import { Given, When, Then } from '@cucumber/cucumber';
@@ -115,4 +88,4 @@ In step definitions, you have access to:
 
 ## Reports
 
-After running tests, HTML and JSON reports are generated in the `reports/` directory.
+After running tests, HTML and JSON reports are generated in `e2e/reports/`.
