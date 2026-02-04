@@ -1,6 +1,6 @@
 # Meeting Plunger - Quick Start Guide
 
-**⚠️ Essential:** Read [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) first for command syntax.
+**⚠️ Essential:** Read [`.cursor/rules/general.mdc`](../.cursor/rules/general.mdc) first for command syntax.
 
 ## One-Time Setup
 
@@ -29,6 +29,5 @@ See [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) for all commands.
 
 ## More Information
 
-- [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) - Essential workflow
-- [NIX_COMMANDS.md](NIX_COMMANDS.md) - Command reference
+- [`.cursor/rules/general.mdc`](../.cursor/rules/general.mdc) - Essential workflow
 - [VSCODE_SETUP.md](VSCODE_SETUP.md) - IDE setup

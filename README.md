@@ -43,7 +43,7 @@ nix develop -c pnpm e2e
 
 **Alternative:** Use `nix develop` or `direnv allow` to enter the environment, then run commands directly.
 
-See [QUICK_START.md](QUICK_START.md) for more details.
+See [docs/QUICK_START.md](docs/QUICK_START.md) for more details.
 
 ## Project Structure
 
@@ -52,6 +52,10 @@ See [QUICK_START.md](QUICK_START.md) for more details.
 ├── backend/          # Python FastAPI backend
 ├── client/           # Golang CLI and local HTTP service
 ├── e2e/              # Playwright + Gherkin e2e tests
+├── docs/             # Documentation
+├── .cursor/          # Cursor AI rules
+│   └── rules/
+│       └── general.mdc     # Essential workflow & commands
 ├── .vscode/          # Shared VSCode settings
 │   ├── settings.json       # Workspace settings (Cucumber config)
 │   ├── extensions.json     # Recommended extensions
@@ -85,8 +89,8 @@ Full details: [e2e/README.md](e2e/README.md)
 ## Documentation
 
 - [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) - **Essential commands & workflow**
-- [QUICK_START.md](QUICK_START.md) - Quick start guide
-- [NIX_COMMANDS.md](NIX_COMMANDS.md) - Nix command reference
-- [VSCODE_SETUP.md](VSCODE_SETUP.md) - VSCode + Cucumber setup
+- [docs/QUICK_START.md](docs/QUICK_START.md) - Quick start guide
+- [docs/VSCODE_SETUP.md](docs/VSCODE_SETUP.md) - VSCode + Cucumber setup
+- [docs/VERIFICATION.md](docs/VERIFICATION.md) - Setup verification
 - [e2e/README.md](e2e/README.md) - E2E testing guide
 

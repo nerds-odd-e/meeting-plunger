@@ -72,6 +72,6 @@ nix develop -c pnpm sut:client   # Client only
 
 ## Documentation
 
-- `QUICK_START.md` - Quick reference
-- `VSCODE_SETUP.md` - VSCode + Cucumber setup
-- `COMMANDS.md` - All available commands
+- `docs/QUICK_START.md` - Quick reference
+- `docs/VSCODE_SETUP.md` - VSCode + Cucumber setup
+- `e2e/README.md` - E2E testing guide

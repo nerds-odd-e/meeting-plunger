@@ -46,7 +46,7 @@ pnpm dry-run       # Validate test structure
 
 ## Quick Start
 
-See [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) for the essential workflow.
+See [`.cursor/rules/general.mdc`](../.cursor/rules/general.mdc) for the essential workflow.
 
 ```bash
 # Install dependencies
