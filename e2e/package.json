@@ -4,10 +4,12 @@
   "description": "E2E tests for Meeting Plunger using Playwright and Cucumber",
   "type": "module",
   "scripts": {
-    "test": "cucumber-js",
-    "test:headed": "HEADED=true cucumber-js",
-    "test:debug": "PWDEBUG=1 cucumber-js",
-    "report": "node support/report.js"
+    "test": "cucumber-js --import 'steps/*.js' --import 'support/*.js'",
+    "test:headed": "HEADED=true cucumber-js --import 'steps/*.js' --import 'support/*.js'",
+    "test:debug": "PWDEBUG=1 cucumber-js --import 'steps/*.js' --import 'support/*.js'",
+    "test:ui": "cucumber-js features/client-ui.feature --import 'steps/*.js' --import 'support/*.js'",
+    "test:health": "cucumber-js features/health-check.feature --import 'steps/*.js' --import 'support/*.js'",
+    "dry-run": "cucumber-js --dry-run --import 'steps/*.js' --import 'support/*.js'"
   },
   "keywords": [
     "playwright",

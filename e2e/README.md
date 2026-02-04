@@ -62,8 +62,7 @@ e2e/
 │   └── client-ui.steps.js
 ├── support/            # Support files
 │   └── world.js       # Custom world with Playwright setup
-├── cucumber.js         # Cucumber configuration
-└── package.json
+└── package.json        # Dependencies and test scripts
 ```
 
 ## Writing Tests
