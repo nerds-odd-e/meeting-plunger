@@ -56,15 +56,14 @@
             echo "  Node.js:  $(node --version)"
             echo "  pnpm:     $(pnpm --version)"
             echo ""
-            echo "Project structure:"
-            echo "  backend/  - Python FastAPI backend"
-            echo "  client/   - Golang CLI and local HTTP service"
-            echo "  e2e/      - Playwright + Gherkin e2e tests"
+            echo "Quick start:"
+            echo "  pnpm sut      # Start backend + client"
+            echo "  pnpm e2e      # Run e2e tests"
             echo ""
-            echo "Get started:"
-            echo "  cd backend && uvicorn main:app --reload"
-            echo "  cd client && go run . serve"
-            echo "  cd e2e && pnpm install && pnpm test"
+            echo "First time setup:"
+            echo "  pnpm install && pnpm e2e:install"
+            echo ""
+            echo "More info: QUICK_START.md"
             
             # Set Playwright browsers path
             export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}

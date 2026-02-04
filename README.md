@@ -39,25 +39,46 @@ Or if using direnv:
 direnv allow
 ```
 
-2. Start the backend:
+2. Install dependencies (first time only):
 
+```bash
+pnpm install
+pnpm e2e:install
+```
+
+### Quick Start
+
+**Start all services (System Under Test):**
+```bash
+pnpm sut
+```
+
+This starts both the backend and client in a single command with color-coded output.
+
+**Run E2E tests (in another terminal):**
+```bash
+pnpm e2e
+```
+
+### Manual Start (Alternative)
+
+If you prefer to start services individually:
+
+**Backend:**
 ```bash
 cd backend
 uvicorn main:app --reload
 ```
 
-3. Start the client (in another terminal):
-
+**Client:**
 ```bash
 cd client
 go run . serve
 ```
 
-4. Run E2E tests (in another terminal):
-
+**E2E tests:**
 ```bash
 cd e2e
-pnpm install  # First time only
 pnpm test
 ```
 
@@ -92,10 +113,16 @@ See [e2e/README.md](e2e/README.md) for detailed testing instructions.
 **Quick start:**
 
 ```bash
-# In separate terminals
-cd backend && uvicorn main:app --reload
-cd client && go run . serve
+# Terminal 1 - Start all services
+pnpm sut
 
-# Run tests
-cd e2e && pnpm test
+# Terminal 2 - Run e2e tests
+pnpm e2e
+```
+
+**Available test commands:**
+```bash
+pnpm e2e          # Run all e2e tests (headless)
+pnpm e2e:headed   # Run with visible browser
+pnpm e2e:debug    # Run in debug mode
 ```

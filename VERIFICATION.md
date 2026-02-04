@@ -51,25 +51,38 @@ pnpm dry-run       # Validate test structure
    nix develop
    ```
 
-2. **Terminal 1 - Start backend:**
+2. **Install dependencies (first time only):**
    ```bash
-   cd backend
-   uvicorn main:app --reload
-   # http://localhost:8000
+   pnpm install
+   pnpm e2e:install
    ```
 
-3. **Terminal 2 - Start client:**
+3. **Terminal 1 - Start all services:**
    ```bash
-   cd client
-   go run . serve
-   # http://localhost:3000
+   pnpm sut
+   # Starts backend on http://localhost:8000
+   # Starts client on http://localhost:3000
    ```
 
-4. **Terminal 3 - Run E2E tests:**
+4. **Terminal 2 - Run E2E tests:**
    ```bash
-   cd e2e
-   pnpm test
+   pnpm e2e
    ```
+
+### Alternative (Manual Start)
+
+If you prefer to start services individually:
+
+```bash
+# Terminal 1
+cd backend && uvicorn main:app --reload
+
+# Terminal 2
+cd client && go run . serve
+
+# Terminal 3
+cd e2e && pnpm test
+```
 
 ## Test Scenarios Available
 

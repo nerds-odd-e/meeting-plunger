@@ -1,3 +1,7 @@
+# Node.js (root level)
+node_modules/
+pnpm-lock.yaml
+
 # Python
 __pycache__/
 *.py[cod]

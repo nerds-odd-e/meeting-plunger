@@ -1,0 +1,28 @@
+{
+  "name": "meeting-plunger",
+  "version": "1.0.0",
+  "description": "Meeting Plunger - AI-powered meeting assistant",
+  "private": true,
+  "scripts": {
+    "sut": "concurrently --names \"backend,client\" --prefix-colors \"blue,green\" \"pnpm sut:backend\" \"pnpm sut:client\"",
+    "sut:backend": "cd backend && uvicorn main:app --reload",
+    "sut:client": "cd client && go run . serve",
+    "e2e": "cd e2e && pnpm test",
+    "e2e:headed": "cd e2e && pnpm test:headed",
+    "e2e:debug": "cd e2e && pnpm test:debug",
+    "e2e:install": "cd e2e && pnpm install",
+    "test": "pnpm e2e",
+    "dev": "pnpm sut"
+  },
+  "keywords": [
+    "meeting",
+    "ai",
+    "fastapi",
+    "golang",
+    "playwright",
+    "e2e"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
