@@ -118,7 +118,8 @@ jobs:
           curl -f http://localhost:3000
 
       - name: Run e2e tests
-        run: pnpm e2e
+        working-directory: e2e
+        run: pnpm exec cucumber-js --tags "not @wip" --import 'steps/*.js' --import 'support/*.js'
 
       - name: Stop services
         if: always()
