@@ -1,0 +1,73 @@
+# Meeting Plunger - Cursor Rules
+
+## CRITICAL: Nix Environment
+
+**ALWAYS prefix ALL commands with `nix develop -c`**
+
+This project uses Nix for reproducible development. Never run commands directly.
+
+### Examples:
+```bash
+# ❌ WRONG
+pnpm sut
+pnpm e2e
+
+# ✅ CORRECT
+nix develop -c pnpm sut
+nix develop -c pnpm e2e
+```
+
+## Quick Commands
+
+### Start Services (System Under Test)
+```bash
+nix develop -c pnpm sut
+```
+Starts both backend (Python/FastAPI on :8000) and client (Go on :3000) with color-coded logs.
+
+### Run E2E Tests
+```bash
+nix develop -c pnpm e2e         # Headless
+nix develop -c pnpm e2e:headed  # With browser
+nix develop -c pnpm e2e:debug   # Debug mode
+```
+
+### Individual Services
+```bash
+nix develop -c pnpm sut:backend  # Backend only
+nix develop -c pnpm sut:client   # Client only
+```
+
+## Project Structure
+
+- `backend/` - Python FastAPI backend
+- `client/` - Golang CLI + HTTP server
+- `e2e/` - Playwright + Cucumber (Gherkin) tests
+- `.vscode/` - VSCode settings with Cucumber plugin config
+
+## Development Workflow
+
+1. **Start services**: `nix develop -c pnpm sut` (Terminal 1)
+2. **Run tests**: `nix develop -c pnpm e2e` (Terminal 2)
+3. **Make changes** to code
+4. **Re-run tests**: Services auto-reload
+
+## Testing
+
+- Feature files: `e2e/features/*.feature`
+- Step definitions: `e2e/steps/*.steps.js`
+- Support code: `e2e/support/world.js`
+
+## Key Points
+
+- **ALWAYS use `nix develop -c` prefix** for commands
+- Backend auto-reloads on changes (uvicorn --reload)
+- Client needs manual restart for Go changes
+- E2E tests require both services running
+- Use `pnpm sut` for simplest workflow (starts both services)
+
+## Documentation
+
+- `QUICK_START.md` - Quick reference
+- `VSCODE_SETUP.md` - VSCode + Cucumber setup
+- `COMMANDS.md` - All available commands

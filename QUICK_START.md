@@ -2,24 +2,46 @@
 
 ## One-Time Setup
 
+### Option 1: With Nix Prefix (One Command)
+
 ```bash
-# 1. Enter development environment
+nix develop -c pnpm install && nix develop -c pnpm e2e:install
+```
+
+### Option 2: Inside Nix Shell (Interactive)
+
+```bash
+# Enter Nix environment
 nix develop
 
-# 2. Install dependencies
+# Install dependencies
 pnpm install
 pnpm e2e:install
 ```
 
+**Note:** All commands require `nix develop -c` prefix OR being run inside `nix develop` shell.
+
 ## Daily Workflow
 
-### Option 1: Quick Start (Recommended)
+### Option 1: Quick Start with Nix Prefix
 
 ```bash
 # Terminal 1 - Start all services
-pnpm sut
+nix develop -c pnpm sut
 
 # Terminal 2 - Run tests
+nix develop -c pnpm e2e
+```
+
+### Option 2: Inside Nix Shell (Recommended)
+
+```bash
+# Terminal 1
+nix develop
+pnpm sut
+
+# Terminal 2
+nix develop
 pnpm e2e
 ```
 

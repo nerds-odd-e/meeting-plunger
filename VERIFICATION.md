@@ -46,28 +46,33 @@ pnpm dry-run       # Validate test structure
 
 ## Quick Start
 
-1. **Enter Nix environment:**
-   ```bash
-   nix develop
-   ```
+### With Nix Prefix (Recommended for CI/Scripts)
 
-2. **Install dependencies (first time only):**
-   ```bash
-   pnpm install
-   pnpm e2e:install
-   ```
+```bash
+# Install dependencies (first time)
+nix develop -c pnpm install
+nix develop -c pnpm e2e:install
 
-3. **Terminal 1 - Start all services:**
-   ```bash
-   pnpm sut
-   # Starts backend on http://localhost:8000
-   # Starts client on http://localhost:3000
-   ```
+# Terminal 1 - Start services
+nix develop -c pnpm sut
 
-4. **Terminal 2 - Run E2E tests:**
-   ```bash
-   pnpm e2e
-   ```
+# Terminal 2 - Run tests
+nix develop -c pnpm e2e
+```
+
+### Inside Nix Shell (Recommended for Development)
+
+```bash
+# Terminal 1
+nix develop
+pnpm sut
+# Starts backend on http://localhost:8000
+# Starts client on http://localhost:3000
+
+# Terminal 2
+nix develop
+pnpm e2e
+```
 
 ### Alternative (Manual Start)
 

@@ -28,22 +28,34 @@ User's Computer                    Server
 
 ### Getting Started
 
-1. Enter the development environment:
+### Option 1: Using `nix develop` (Recommended for running commands)
+
+All commands must be prefixed with `nix develop -c`:
+
+```bash
+# Install dependencies (first time only)
+nix develop -c pnpm install
+nix develop -c pnpm e2e:install
+
+# Start services
+nix develop -c pnpm sut
+
+# Run tests (in another terminal)
+nix develop -c pnpm e2e
+```
+
+### Option 2: Enter Nix shell (Recommended for development)
 
 ```bash
 nix develop
+# Now you're in the Nix environment, commands work directly
+pnpm sut
 ```
 
-Or if using direnv:
+Or use direnv for automatic activation:
 ```bash
 direnv allow
-```
-
-2. Install dependencies (first time only):
-
-```bash
-pnpm install
-pnpm e2e:install
+# Environment activates automatically when you cd into the directory
 ```
 
 ### Quick Start
@@ -133,3 +145,14 @@ pnpm e2e          # Run all e2e tests (headless)
 pnpm e2e:headed   # Run with visible browser
 pnpm e2e:debug    # Run in debug mode
 ```
+
+## Documentation
+
+- [QUICK_START.md](QUICK_START.md) - Quick start guide
+- [NIX_COMMANDS.md](NIX_COMMANDS.md) - **Nix command reference (READ THIS!)**
+- [COMMANDS.md](COMMANDS.md) - All available commands
+- [VSCODE_SETUP.md](VSCODE_SETUP.md) - VSCode + Cucumber setup
+- [SETUP_SUMMARY.md](SETUP_SUMMARY.md) - Detailed setup guide
+- [e2e/README.md](e2e/README.md) - E2E testing guide
+- [.cursorrules](.cursorrules) - Cursor AI rules
+
