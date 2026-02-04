@@ -37,9 +37,6 @@
             nodejs_22
             nodePackages.pnpm
             
-            # Playwright dependencies
-            playwright-driver.browsers
-            
             # Development tools
             git
             
@@ -66,8 +63,8 @@
             echo ""
             echo "More info: docs/QUICK_START.md"
             
-            # Set Playwright browsers path
-            export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}
+            # Note: Playwright will manage its own browsers via 'pnpm exec playwright install'
+            # We don't use Nix's playwright-driver.browsers to avoid version mismatches
             export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
           '';
         };
