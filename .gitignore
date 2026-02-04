@@ -54,8 +54,9 @@ result-*
 *.swp
 *.swo
 *~
-# Keep .vscode for shared settings
+# Keep .vscode and .cursor for shared settings
 !.vscode/
+!.cursor/
 
 # OS
 .DS_Store

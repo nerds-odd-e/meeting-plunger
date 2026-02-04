@@ -46,47 +46,17 @@ pnpm dry-run       # Validate test structure
 
 ## Quick Start
 
-### With Nix Prefix (Recommended for CI/Scripts)
+See [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) for the essential workflow.
 
 ```bash
-# Install dependencies (first time)
-nix develop -c pnpm install
-nix develop -c pnpm e2e:install
+# Install dependencies
+nix develop -c pnpm install && nix develop -c pnpm e2e:install
 
 # Terminal 1 - Start services
 nix develop -c pnpm sut
 
 # Terminal 2 - Run tests
 nix develop -c pnpm e2e
-```
-
-### Inside Nix Shell (Recommended for Development)
-
-```bash
-# Terminal 1
-nix develop
-pnpm sut
-# Starts backend on http://localhost:8000
-# Starts client on http://localhost:3000
-
-# Terminal 2
-nix develop
-pnpm e2e
-```
-
-### Alternative (Manual Start)
-
-If you prefer to start services individually:
-
-```bash
-# Terminal 1
-cd backend && uvicorn main:app --reload
-
-# Terminal 2
-cd client && go run . serve
-
-# Terminal 3
-cd e2e && pnpm test
 ```
 
 ## Test Scenarios Available
