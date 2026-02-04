@@ -31,7 +31,7 @@ func startHTTPServer() {
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, `
+	_, err := fmt.Fprintf(w, `
 		<!DOCTYPE html>
 		<html>
 		<head>
@@ -43,9 +43,15 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 		</body>
 		</html>
 	`)
+	if err != nil {
+		log.Printf("Error writing response: %v", err)
+	}
 }
 
 func handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status": "healthy"}`)
+	_, err := fmt.Fprintf(w, `{"status": "healthy"}`)
+	if err != nil {
+		log.Printf("Error writing response: %v", err)
+	}
 }

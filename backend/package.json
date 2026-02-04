@@ -1,0 +1,10 @@
+{
+  "name": "meeting-plunger-backend",
+  "version": "0.1.0",
+  "description": "Meeting Plunger Backend - Python/FastAPI service",
+  "private": true,
+  "scripts": {
+    "lint": "ruff check .",
+    "format": "ruff format ."
+  }
+}

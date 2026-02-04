@@ -31,11 +31,16 @@
             
             # Golang
             go
+            gotools  # Includes goimports
             air  # Go live reload
             
             # Node.js and pnpm for e2e tests
             nodejs_22
             nodePackages.pnpm
+            
+            # Linting and formatting tools
+            golangci-lint    # Go linter
+            ruff             # Python formatter and linter
             
             # Development tools
             git
@@ -57,6 +62,8 @@
             echo "Quick start:"
             echo "  pnpm sut      # Start backend + client (both auto-reload)"
             echo "  pnpm e2e      # Run e2e tests"
+            echo "  pnpm lint     # Lint all code"
+            echo "  pnpm format   # Format all code"
             echo ""
             echo "First time setup:"
             echo "  pnpm install && pnpm e2e:install"

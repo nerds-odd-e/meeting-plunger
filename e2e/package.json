@@ -9,7 +9,9 @@
     "test:debug": "PWDEBUG=1 cucumber-js --import 'steps/*.js' --import 'support/*.js'",
     "test:ui": "cucumber-js features/client-ui.feature --import 'steps/*.js' --import 'support/*.js'",
     "test:health": "cucumber-js features/health-check.feature --import 'steps/*.js' --import 'support/*.js'",
-    "dry-run": "cucumber-js --dry-run --import 'steps/*.js' --import 'support/*.js'"
+    "dry-run": "cucumber-js --dry-run --import 'steps/*.js' --import 'support/*.js'",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "keywords": [
     "playwright",
@@ -20,6 +22,8 @@
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.51.1",
-    "playwright": "^1.51.1"
+    "playwright": "^1.51.1",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2"
   }
 }

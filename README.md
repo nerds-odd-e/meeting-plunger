@@ -86,6 +86,25 @@ nix develop -c pnpm e2e:headed  # With browser
 ```
 
 Full details: [e2e/README.md](e2e/README.md)
+
+## Code Quality
+
+Linting and formatting tools are configured for all subprojects:
+
+```bash
+nix develop -c pnpm lint    # Lint all code (Go, Python, JS)
+nix develop -c pnpm format  # Format all code
+```
+
+Individual projects:
+```bash
+nix develop -c pnpm lint:client    # Go (golangci-lint)
+nix develop -c pnpm lint:backend   # Python (ruff)
+nix develop -c pnpm lint:e2e       # JavaScript (eslint)
+```
+
+Full details: [docs/LINTING_AND_FORMATTING.md](docs/LINTING_AND_FORMATTING.md)
+
 ## Documentation
 
 - [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) - **Essential commands & workflow**
