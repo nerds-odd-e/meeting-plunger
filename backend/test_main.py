@@ -1,6 +1,5 @@
 """Unit tests for the Meeting Plunger API."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 from main import app
