@@ -21,9 +21,28 @@ User's Computer                    Server
 
 ## Development Setup
 
+### Quick Setup (Recommended)
+
+For first-time setup, run the automated setup script:
+
+```bash
+./setup-meeting-plunger-dev.sh
+```
+
+This script will:
+- Install Nix package manager (if not already installed)
+- Configure Nix flakes
+- Set up the development environment
+
+After the script completes, exit your terminal, open a new one, and proceed to **Getting Started** below.
+
+### Manual Setup
+
+If the automated setup fails, see [docs/nix.md](docs/nix.md) for detailed manual installation instructions.
+
 ### Prerequisites
 
-- [Nix](https://nixos.org/download.html) with flakes enabled
+- [Nix](https://nixos.org/download.html) with flakes enabled (installed by setup script)
 - (Optional) [direnv](https://direnv.net/) for automatic environment loading
 
 ### Getting Started
@@ -108,6 +127,7 @@ Full details: [docs/LINTING_AND_FORMATTING.md](docs/LINTING_AND_FORMATTING.md)
 ## Documentation
 
 - [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) - **Essential commands & workflow**
+- [docs/nix.md](docs/nix.md) - Nix environment setup (manual installation)
 - [docs/QUICK_START.md](docs/QUICK_START.md) - Quick start guide
 - [docs/VSCODE_SETUP.md](docs/VSCODE_SETUP.md) - VSCode + Cucumber setup
 - [docs/VERIFICATION.md](docs/VERIFICATION.md) - Setup verification

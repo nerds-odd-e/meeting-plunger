@@ -8,6 +8,7 @@ All documentation for the Meeting Plunger project.
 
 ## Guides
 
+- [nix.md](nix.md) - Nix environment setup (manual installation guide)
 - [QUICK_START.md](QUICK_START.md) - Quick start guide for getting up and running
 - [VERIFICATION.md](VERIFICATION.md) - Verify your setup is working correctly
 - [VSCODE_SETUP.md](VSCODE_SETUP.md) - VSCode configuration with Cucumber plugin
