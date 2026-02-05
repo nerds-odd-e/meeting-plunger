@@ -30,9 +30,13 @@ nix develop -c pnpm e2e:debug
 ```
 e2e/
 ├── features/           # Gherkin feature files
-│   └── health-check.feature
+│   └── single_speaker.feature
 ├── steps/              # Step definitions (TypeScript)
-│   └── health-check.steps.ts
+│   └── single-speaker.steps.ts
+├── pages/              # Page object models
+│   ├── HomePage.ts
+│   └── start.ts
+├── fixtures/           # Test fixtures (audio files, etc.)
 ├── support/            # Support files
 │   └── world.ts       # Custom world with Playwright setup
 ├── tsconfig.json       # TypeScript configuration

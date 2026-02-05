@@ -27,7 +27,6 @@
 pnpm test          # Run all tests (headless)
 pnpm test:headed   # Run with visible browser
 pnpm test:debug    # Run in debug mode
-pnpm test:health   # Run health check tests only
 pnpm dry-run       # Validate test structure
 ```
 
@@ -39,7 +38,7 @@ pnpm dry-run       # Validate test structure
 ✅ Backend dependencies installed
 ✅ Client compiles successfully
 ✅ E2E test dependencies installed (139 packages)
-✅ Test structure validated (2 scenarios, 8 steps)
+✅ Test structure validated (1 scenario, 3 steps)
 ```
 
 ## Quick Start
@@ -56,12 +55,6 @@ nix develop -c pnpm sut
 # Terminal 2 - Run tests
 nix develop -c pnpm e2e
 ```
-
-## Test Scenarios Available
-
-### Health Check Tests (`features/health-check.feature`)
-- Backend health check
-- Client health check
 
 ## Next Steps
 

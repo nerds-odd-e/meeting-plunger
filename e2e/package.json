@@ -7,7 +7,6 @@
     "test": "NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
     "test:headed": "HEADED=true NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
     "test:debug": "PWDEBUG=1 NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
-    "test:health": "NODE_OPTIONS='--import tsx/esm' cucumber-js features/health-check.feature --import 'steps/*.ts' --import 'support/*.ts'",
     "dry-run": "NODE_OPTIONS='--import tsx/esm' cucumber-js --dry-run --import 'steps/*.ts' --import 'support/*.ts'",
     "lint": "eslint .",
     "format": "prettier --write ."
