@@ -153,7 +153,56 @@ pnpm e2e    # Terminal 2
 3. Click `+` for new terminal
 4. Type `pnpm e2e`
 
+## Nix Environment Setup
+
+### Go Language Support
+
+This project uses Nix for reproducible environments. Go and `gopls` are provided by Nix, but Cursor needs to be configured to find them.
+
+**Option 1: Launch Cursor from Nix Shell (Recommended)**
+
+```bash
+# Enter nix environment first
+nix develop
+
+# Then launch Cursor from within the nix shell
+cursor .
+# or: code . (if using VSCode)
+```
+
+Cursor will inherit the PATH from the Nix environment and automatically find Go tools.
+
+**Option 2: Use direnv (Best for Teams)**
+
+If you have direnv installed:
+1. Install the "direnv" extension in Cursor
+2. Reload the window - environment loads automatically
+3. No manual configuration needed!
+
+**Option 3: Manual Configuration (If above don't work)**
+
+Run this script to generate local settings:
+```bash
+./scripts/setup-cursor-go.sh
+```
+
+Then add the generated paths to your **User Settings** (not workspace):
+1. Open User Settings: `Cmd+Shift+P` → "Preferences: Open User Settings (JSON)"
+2. Copy the settings from `.vscode/settings.local.json`
+3. Paste into your user settings
+4. Reload window
+
+**Note:** Each developer configures this once on their machine.
+
 ## Troubleshooting
+
+### Go Extension Can't Find Go Binary
+
+**Solution:** Run the Nix setup script:
+```bash
+./scripts/setup-cursor-go.sh
+```
+Then reload the window.
 
 ### Cucumber Autocomplete Not Working
 

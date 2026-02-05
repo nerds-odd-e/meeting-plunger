@@ -59,6 +59,8 @@ result-*
 # Keep .vscode and .cursor for shared settings
 !.vscode/
 !.cursor/
+# But ignore local-only settings
+.vscode/settings.local.json
 
 # OS
 .DS_Store

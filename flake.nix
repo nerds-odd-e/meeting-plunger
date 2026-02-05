@@ -32,6 +32,7 @@
             # Golang
             go
             gotools  # Includes goimports
+            gopls    # Go language server (for IDE support)
             air  # Go live reload
             
             # Node.js and pnpm for e2e tests
@@ -51,6 +52,11 @@
           ];
 
           shellHook = ''
+            # Add (nix) prefix to prompt
+            if [[ "$PS1" != *"(nix)"* ]]; then
+              export PS1="(nix) $PS1"
+            fi
+            
             echo "🚀 Meeting Plunger Development Environment"
             echo ""
             echo "Available tools:"
