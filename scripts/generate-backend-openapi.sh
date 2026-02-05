@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Script to generate OpenAPI spec from FastAPI backend
-# The backend must be running on http://localhost:8000
+# This script extracts the spec directly from the FastAPI app without running the server
 # The generated openapi.json will be placed in backend/generated/
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -10,32 +10,43 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 BACKEND_DIR="$PROJECT_ROOT/backend"
 GENERATED_DIR="$BACKEND_DIR/generated"
 
-echo "🔄 Fetching OpenAPI spec from FastAPI backend..."
-echo "   Backend URL: http://localhost:8000"
+echo "🔄 Generating OpenAPI spec from FastAPI backend..."
 echo "   Output dir: $GENERATED_DIR"
 echo ""
 
 # Ensure generated directory exists
 mkdir -p "$GENERATED_DIR"
 
-# Check if backend is running
-if ! curl -s http://localhost:8000/health > /dev/null 2>&1; then
-  echo "❌ Error: Backend is not running on http://localhost:8000"
-  echo ""
-  echo "Please start the backend first:"
-  echo "  nix develop -c pnpm sut:backend"
-  echo ""
-  echo "Or start all services:"
-  echo "  nix develop -c pnpm sut"
-  exit 1
+# Generate OpenAPI spec using Python script (no server needed)
+echo "Extracting OpenAPI spec from FastAPI app..."
+
+# Check if running in CI or if nix is not available
+if [ "${CI:-false}" = "true" ] || ! command -v nix > /dev/null 2>&1; then
+  # Running in CI or without Nix - python should be in PATH
+  python3 -c "
+import json
+import sys
+sys.path.insert(0, '$BACKEND_DIR')
+from main import app
+with open('$GENERATED_DIR/openapi.json', 'w') as f:
+    json.dump(app.openapi(), f, indent=2)
+"
+else
+  # Running locally with Nix
+  nix develop -c python -c "
+import json
+import sys
+sys.path.insert(0, '$BACKEND_DIR')
+from main import app
+with open('$GENERATED_DIR/openapi.json', 'w') as f:
+    json.dump(app.openapi(), f, indent=2)
+"
 fi
 
-# Fetch the OpenAPI spec from FastAPI
-echo "Fetching OpenAPI spec from /openapi.json..."
-if curl -s http://localhost:8000/openapi.json -o "$GENERATED_DIR/openapi.json"; then
+if [ -f "$GENERATED_DIR/openapi.json" ]; then
   echo "✅ Generated: $GENERATED_DIR/openapi.json"
 else
-  echo "❌ Error: Failed to fetch OpenAPI spec"
+  echo "❌ Error: Failed to generate OpenAPI spec"
   exit 1
 fi
 

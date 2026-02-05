@@ -12,16 +12,9 @@ All inter-service communication uses generated, type-safe client code - no manua
 
 ## Quick Start
 
-### Prerequisites
-
-Backend must be running for backend code generation:
-```bash
-nix develop -c pnpm sut:backend
-```
-
 ### Generate All API Code
 
-Single command generates everything:
+Single command generates everything (no backend server needed):
 ```bash
 nix develop -c pnpm generate:api
 ```
@@ -181,10 +174,7 @@ This ensures consistent API contracts across development, CI, and production.
 Ensure all generated files are up to date:
 
 ```bash
-# Requires backend to be running
-nix develop -c pnpm sut:backend
-
-# Run validation (in another terminal)
+# No backend server needed
 nix develop -c pnpm validate:api
 ```
 

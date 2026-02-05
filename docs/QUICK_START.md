@@ -27,10 +27,7 @@ See [`.cursor/rules/general.mdc`](.cursor/rules/general.mdc) for all commands.
 When you modify API endpoints:
 
 ```bash
-# Start backend first
-nix develop -c pnpm sut:backend
-
-# Generate all API clients (in another terminal)
+# No backend server needed
 nix develop -c pnpm generate:api
 ```
 

@@ -44,6 +44,7 @@ The Python FastAPI backend provides an OpenAPI 3.0 specification at `/openapi.js
 
 **Generate:**
 ```bash
+# No backend server needed - extracts spec directly from FastAPI app
 nix develop -c pnpm generate:api
 ```
 
@@ -176,8 +177,7 @@ export class TranscriptionService {
 
 **For Backend endpoints:**
 1. **Update Python code** in `backend/main.py` with type hints
-2. **Ensure backend is running** (`nix develop -c pnpm sut:backend`)
-3. **Regenerate all API code:**
+2. **Regenerate all API code:**
    ```bash
    nix develop -c pnpm generate:api
    ```
@@ -194,17 +194,15 @@ export class TranscriptionService {
 The `pnpm generate:api` command handles everything:
 - Generates `local-service/generated/openapi.json` from Go code (swag)
 - Generates `frontend/src/generated/client/` from local-service spec (@hey-api/openapi-ts)
-- Fetches `backend/generated/openapi.json` from running backend (curl)
+- Extracts `backend/generated/openapi.json` from FastAPI app (no server needed)
 - Generates `local-service/generated/backend_client/` from backend spec (oapi-codegen)
-
-**Important:** Backend must be running for backend code generation to work.
 
 ### Validation
 
 To ensure all generated files are up to date:
 
 ```bash
-# Requires backend to be running
+# No backend server needed
 nix develop -c pnpm validate:api
 ```
 

@@ -122,7 +122,7 @@ Full details: [e2e/README.md](e2e/README.md)
 All inter-service communication uses type-safe generated clients. Single command to generate all:
 
 ```bash
-# Requires backend running (nix develop -c pnpm sut:backend)
+# No backend server needed - extracts OpenAPI specs directly from code
 nix develop -c pnpm generate:api
 ```
 

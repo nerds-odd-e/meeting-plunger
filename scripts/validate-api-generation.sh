@@ -22,28 +22,7 @@ TEMP_DIR=$(mktemp -d)
 trap "rm -rf $TEMP_DIR" EXIT
 
 # ============================================================================
-# STEP 1: Check if Backend is Running
-# ============================================================================
-
-echo "🔍 Checking if backend is running..."
-
-if ! curl -s http://localhost:8000/health > /dev/null 2>&1; then
-  echo ""
-  echo "❌ ERROR: Backend is not running!"
-  echo ""
-  echo "The backend must be running to validate backend API generation."
-  echo ""
-  echo "🔧 To fix this:"
-  echo "   1. Start the backend: nix develop -c pnpm sut:backend"
-  echo "   2. Then run validation again: nix develop -c pnpm validate:api"
-  echo ""
-  exit 1
-fi
-
-echo "   ✅ Backend is running"
-
-# ============================================================================
-# STEP 2: Validate Backend OpenAPI Spec
+# STEP 1: Validate Backend OpenAPI Spec
 # ============================================================================
 
 echo ""
@@ -144,9 +123,8 @@ if ! diff -q "$TEMP_DIR/backend-client.go.old" "$BACKEND_CLIENT_FILE" > /dev/nul
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo ""
   echo "🔧 To fix this:"
-  echo "   1. Ensure backend is running: nix develop -c pnpm sut:backend"
-  echo "   2. Run: nix develop -c pnpm generate:api"
-  echo "   3. Commit the updated files:"
+  echo "   1. Run: nix develop -c pnpm generate:api"
+  echo "   2. Commit the updated files:"
   echo "      - backend/generated/openapi.json"
   echo "      - local-service/generated/backend_client/client.go"
   echo ""
@@ -160,7 +138,7 @@ fi
 echo "   ✅ Backend Go client is up to date"
 
 # ============================================================================
-# STEP 4: Validate Local Service OpenAPI Spec
+# STEP 3: Validate Local Service OpenAPI Spec
 # ============================================================================
 
 echo ""
@@ -201,9 +179,8 @@ if ! diff -q "$TEMP_DIR/openapi.json.old" "$LOCAL_SERVICE_OPENAPI_FILE" > /dev/n
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo ""
   echo "🔧 To fix this:"
-  echo "   1. Ensure backend is running: nix develop -c pnpm sut:backend"
-  echo "   2. Run: nix develop -c pnpm generate:api"
-  echo "   3. Commit the updated files:"
+  echo "   1. Run: nix develop -c pnpm generate:api"
+  echo "   2. Commit the updated files:"
   echo "      - backend/generated/openapi.json"
   echo "      - local-service/generated/backend_client/client.go"
   echo "      - local-service/generated/openapi.json"
@@ -219,7 +196,7 @@ fi
 echo "   ✅ Local-service OpenAPI spec is up to date"
 
 # ============================================================================
-# STEP 5: Validate Frontend Generated Client
+# STEP 4: Validate Frontend Generated Client
 # ============================================================================
 
 echo ""
@@ -273,9 +250,8 @@ if [ -n "$EXTRA_FILES" ]; then
   echo ""
   echo "🔧 To fix this:"
   echo "   1. Remove the extra files from frontend/src/generated/client/"
-  echo "   2. Ensure backend is running: nix develop -c pnpm sut:backend"
-  echo "   3. Run: nix develop -c pnpm generate:api"
-  echo "   4. Commit only the legitimate generated files"
+  echo "   2. Run: nix develop -c pnpm generate:api"
+  echo "   3. Commit only the legitimate generated files"
   echo ""
   
   # Note: Working directory is not modified (we kept the committed version intact)
@@ -297,9 +273,8 @@ if [ -n "$OTHER_DIFFS" ]; then
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo ""
   echo "🔧 To fix this:"
-  echo "   1. Ensure backend is running: nix develop -c pnpm sut:backend"
-  echo "   2. Run: nix develop -c pnpm generate:api"
-  echo "   3. Commit the updated files:"
+  echo "   1. Run: nix develop -c pnpm generate:api"
+  echo "   2. Commit the updated files:"
   echo "      - backend/generated/openapi.json"
   echo "      - local-service/generated/backend_client/client.go"
   echo "      - local-service/generated/openapi.json"
