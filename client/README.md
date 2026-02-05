@@ -96,10 +96,17 @@ nix develop -c pnpm validate:api
 
 The validation will fail with a diff if the generated file doesn't match the code. This ensures the OpenAPI spec is always kept in sync with the API implementation.
 
-The generated `openapi.json` file is committed to the repository and can be used to:
-- Generate TypeScript types for the frontend
-- Generate API clients
+The generated `openapi.json` file is committed to the repository and is used to:
+- Generate TypeScript client and SDK for the frontend (automatically via `pnpm generate:api`)
 - View in Swagger UI or other OpenAPI tools
+- Generate API clients for other languages if needed
+
+**Frontend integration:**
+The OpenAPI spec is automatically converted to TypeScript client code including:
+- Type-safe service classes (`TranscriptionService`, `HealthService`)
+- Type definitions for all requests and responses
+- Error handling with `ApiError`
+- No need for manual fetch/response.json() calls
 
 ### Endpoints
 

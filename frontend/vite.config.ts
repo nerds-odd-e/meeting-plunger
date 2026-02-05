@@ -7,6 +7,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@generated/client': fileURLToPath(
+        new URL('./src/generated/client/index.ts', import.meta.url),
+      ),
     },
   },
   server: {

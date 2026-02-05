@@ -12,12 +12,13 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write \"src/**/*.{js,ts,vue,json,css,scss,md}\"",
-    "generate:client": "mkdir -p src/generated/client && swagger2openapi ../client/generated/openapi.json --outfile src/generated/client/openapi-v3.json && openapi-typescript src/generated/client/openapi-v3.json -o src/generated/client/types.ts && rm src/generated/client/openapi-v3.json"
+    "generate:client": "openapi-ts"
   },
   "dependencies": {
     "vue": "^3.4.0"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "0.45.0",
     "@types/node": "^20.11.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",

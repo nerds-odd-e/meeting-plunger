@@ -17,6 +17,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { TranscriptionService, ApiError, OpenAPI } from '../generated/client';
+
+// Configure OpenAPI client to use relative URLs (proxied by Vite)
+OpenAPI.BASE = '';
 
 const emit = defineEmits<{
   transcript: [text: string];
@@ -30,21 +34,21 @@ const handleSubmit = async () => {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('file', fileInput.value.files[0]);
+  const file = fileInput.value.files[0];
 
   try {
-    const response = await fetch('/upload', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const data = await response.json();
-    emit('transcript', data.transcript);
+    const response = await TranscriptionService.postUpload({ file });
+    emit('transcript', response.transcript || '');
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error';
-    emit('transcript', 'Error: ' + errorMessage);
+    if (error instanceof ApiError) {
+      const errorMessage =
+        error.body?.error || error.message || 'Upload failed';
+      emit('transcript', `Error: ${errorMessage}`);
+    } else {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      emit('transcript', 'Error: ' + errorMessage);
+    }
   }
 };
 </script>

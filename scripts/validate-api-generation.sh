@@ -9,7 +9,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 CLIENT_DIR="$PROJECT_ROOT/client"
 FRONTEND_DIR="$PROJECT_ROOT/frontend"
 OPENAPI_FILE="$CLIENT_DIR/generated/openapi.json"
-FRONTEND_TYPES_FILE="$FRONTEND_DIR/src/generated/client/types.ts"
+FRONTEND_GENERATED_DIR="$FRONTEND_DIR/src/generated/client"
 
 echo "🔍 Validating generated API files are up to date..."
 echo ""
@@ -62,7 +62,7 @@ if ! diff -q "$TEMP_DIR/openapi.json.old" "$OPENAPI_FILE" > /dev/null 2>&1; then
   echo "   1. Run: nix develop -c pnpm generate:api"
   echo "   2. Commit the updated files:"
   echo "      - client/generated/openapi.json"
-  echo "      - frontend/src/generated/client/types.ts"
+  echo "      - frontend/src/generated/client/**"
   echo ""
   
   # Restore the old file so the working directory is not modified
@@ -74,73 +74,60 @@ fi
 echo "   ✅ OpenAPI spec is up to date"
 
 # ============================================================================
-# STEP 2: Validate Frontend TypeScript Types
+# STEP 2: Validate Frontend Generated Client
 # ============================================================================
 
 echo ""
-echo "📄 Checking frontend types (frontend/src/generated/client/types.ts)..."
+echo "📄 Checking frontend generated client (frontend/src/generated/client/)..."
 
-# Check if the frontend types file exists
-if [ ! -f "$FRONTEND_TYPES_FILE" ]; then
-  echo "❌ Error: Generated frontend types not found at $FRONTEND_TYPES_FILE"
+# Check if the generated client directory exists
+if [ ! -d "$FRONTEND_GENERATED_DIR" ]; then
+  echo "❌ Error: Generated frontend client not found at $FRONTEND_GENERATED_DIR"
   echo ""
   echo "Please run: nix develop -c pnpm generate:api"
   exit 1
 fi
 
-# Copy the current frontend types to temp for comparison
-cp "$FRONTEND_TYPES_FILE" "$TEMP_DIR/types.ts.old"
+# Backup the current generated client
+cp -r "$FRONTEND_GENERATED_DIR" "$TEMP_DIR/client.old"
 
-# Regenerate frontend types
+# Regenerate frontend client
 cd "$FRONTEND_DIR"
-mkdir -p src/generated/client
+pnpm generate:client > /dev/null 2>&1
 
-# Check if running in CI or if nix is not available
-if [ "${CI:-false}" = "true" ] || ! command -v nix > /dev/null 2>&1; then
-  # Running in CI or without Nix - run pnpm directly
-  pnpm generate:client > /dev/null 2>&1
-else
-  # Running locally with Nix
-  nix develop -c pnpm generate:client > /dev/null 2>&1
-fi
+# Compare all generated files
+DIFF_OUTPUT=$(diff -r -q "$TEMP_DIR/client.old" "$FRONTEND_GENERATED_DIR" 2>&1 || true)
 
-# Compare frontend types
-if ! diff -q "$TEMP_DIR/types.ts.old" "$FRONTEND_TYPES_FILE" > /dev/null 2>&1; then
+if [ -n "$DIFF_OUTPUT" ]; then
   echo ""
-  echo "❌ ERROR: Frontend TypeScript types are out of date!"
+  echo "❌ ERROR: Frontend generated client is out of date!"
   echo ""
-  echo "The committed types.ts differs from the generated version."
+  echo "The committed generated files differ from the newly generated version."
   echo "This usually means:"
-  echo "  - The OpenAPI spec was updated but frontend types weren't regenerated"
-  echo "  - OR someone modified the types file manually (don't do this!)"
+  echo "  - The OpenAPI spec was updated but frontend client wasn't regenerated"
+  echo "  - OR someone modified the generated files manually (don't do this!)"
   echo ""
-  echo "📋 Differences in frontend/src/generated/client/types.ts:"
+  echo "📋 Differences in frontend/src/generated/client/:"
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  
-  # Show colorful diff if available, otherwise plain diff (limit to first 100 lines for readability)
-  if command -v colordiff > /dev/null 2>&1; then
-    diff -u "$TEMP_DIR/types.ts.old" "$FRONTEND_TYPES_FILE" | head -100 | colordiff || true
-  else
-    diff -u "$TEMP_DIR/types.ts.old" "$FRONTEND_TYPES_FILE" | head -100 || true
-  fi
-  
+  echo "$DIFF_OUTPUT"
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo ""
   echo "🔧 To fix this:"
   echo "   1. Run: nix develop -c pnpm generate:api"
   echo "   2. Commit the updated files:"
   echo "      - client/generated/openapi.json"
-  echo "      - frontend/src/generated/client/types.ts"
+  echo "      - frontend/src/generated/client/**"
   echo ""
   
   # Restore the old files so the working directory is not modified
   cp "$TEMP_DIR/openapi.json.old" "$OPENAPI_FILE"
-  cp "$TEMP_DIR/types.ts.old" "$FRONTEND_TYPES_FILE"
+  rm -rf "$FRONTEND_GENERATED_DIR"
+  cp -r "$TEMP_DIR/client.old" "$FRONTEND_GENERATED_DIR"
   
   exit 1
 fi
 
-echo "   ✅ Frontend types are up to date"
+echo "   ✅ Frontend generated client is up to date"
 
 # ============================================================================
 # Success!
