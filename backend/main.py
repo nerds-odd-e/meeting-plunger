@@ -24,7 +24,7 @@ async def health_check():
 
 
 @app.post("/transcribe")
-async def transcribe(file: UploadFile = File(...)):
+async def transcribe(file: UploadFile = File(...)):  # noqa: B008
     """Transcribe audio file - currently returns hardcoded response."""
     # TODO: Implement actual transcription logic
     # For now, return hardcoded response

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,6 +10,8 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+
+	"local-service/generated/backend_client"
 )
 
 // HealthResponse represents the health check response
@@ -72,7 +75,11 @@ func HandleTranscribe(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error retrieving file: %v", err)
 		return
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Printf("Error closing file: %v", err)
+		}
+	}()
 
 	// Create a buffer to write the multipart form data
 	var requestBody bytes.Buffer
@@ -108,24 +115,27 @@ func HandleTranscribe(w http.ResponseWriter, r *http.Request) {
 		backendURL = "http://localhost:8000"
 	}
 
-	// Forward the request to the backend
-	req, err := http.NewRequest("POST", backendURL+"/transcribe", &requestBody)
+	// Create backend client using generated code
+	client, err := backendclient.NewClient(backendURL)
 	if err != nil {
-		http.Error(w, "Error creating request", http.StatusInternalServerError)
-		log.Printf("Error creating request: %v", err)
+		http.Error(w, "Error creating backend client", http.StatusInternalServerError)
+		log.Printf("Error creating backend client: %v", err)
 		return
 	}
-	req.Header.Set("Content-Type", writer.FormDataContentType())
 
-	// Send the request to the backend
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	// Call backend using generated client
+	ctx := context.Background()
+	resp, err := client.TranscribeTranscribePostWithBody(ctx, writer.FormDataContentType(), &requestBody)
 	if err != nil {
 		http.Error(w, "Error calling backend", http.StatusInternalServerError)
 		log.Printf("Error calling backend: %v", err)
 		return
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Error closing response body: %v", err)
+		}
+	}()
 
 	// Read the response from the backend
 	body, err := io.ReadAll(resp.Body)
