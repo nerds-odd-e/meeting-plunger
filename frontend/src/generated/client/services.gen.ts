@@ -3,7 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { GetHealthResponse, PostUploadData, PostUploadResponse } from './types.gen';
+import type { GetHealthResponse, PostTranscribeData, PostTranscribeResponse } from './types.gen';
 
 export class HealthService {
     /**
@@ -23,17 +23,17 @@ export class HealthService {
 
 export class TranscriptionService {
     /**
-     * Upload audio file for transcription
+     * Transcribe audio file
      * Accepts an audio file and returns its transcription
      * @param data The data for the request.
      * @param data.file Audio file to transcribe
      * @returns main_TranscriptResponse OK
      * @throws ApiError
      */
-    public static postUpload(data: PostUploadData): CancelablePromise<PostUploadResponse> {
+    public static postTranscribe(data: PostTranscribeData): CancelablePromise<PostTranscribeResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/upload',
+            url: '/transcribe',
             formData: {
                 file: data.file
             },

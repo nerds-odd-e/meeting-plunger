@@ -14,14 +14,14 @@ export type main_TranscriptResponse = {
 
 export type GetHealthResponse = main_HealthResponse;
 
-export type PostUploadData = {
+export type PostTranscribeData = {
     /**
      * Audio file to transcribe
      */
     file: (Blob | File);
 };
 
-export type PostUploadResponse = main_TranscriptResponse;
+export type PostTranscribeResponse = main_TranscriptResponse;
 
 export type $OpenApiTs = {
     '/health': {
@@ -34,7 +34,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/upload': {
+    '/transcribe': {
         post: {
             req: {
                 /**

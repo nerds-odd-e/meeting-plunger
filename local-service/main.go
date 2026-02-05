@@ -38,7 +38,7 @@ func main() {
 
 func startHTTPServer() {
 	http.HandleFunc("/health", HandleHealth)
-	http.HandleFunc("/upload", HandleUpload)
+	http.HandleFunc("/transcribe", HandleTranscribe)
 
 	port := ":3001"
 	fmt.Printf("Starting client API server on http://localhost%s\n", port)

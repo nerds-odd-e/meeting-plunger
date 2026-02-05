@@ -36,8 +36,8 @@ func HandleHealth(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// HandleUpload handles file upload and returns hardcoded transcription
-// @Summary Upload audio file for transcription
+// HandleTranscribe handles file upload and returns hardcoded transcription
+// @Summary Transcribe audio file
 // @Description Accepts an audio file and returns its transcription
 // @Tags transcription
 // @Accept multipart/form-data
@@ -45,8 +45,8 @@ func HandleHealth(w http.ResponseWriter, r *http.Request) {
 // @Param file formData file true "Audio file to transcribe"
 // @Success 200 {object} TranscriptResponse
 // @Failure 405 {object} ErrorResponse
-// @Router /upload [post]
-func HandleUpload(w http.ResponseWriter, r *http.Request) {
+// @Router /transcribe [post]
+func HandleTranscribe(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return

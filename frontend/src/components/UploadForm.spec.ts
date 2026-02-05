@@ -11,7 +11,7 @@ vi.mock('../generated/client', async () => {
   return {
     ...actual,
     TranscriptionService: {
-      postUpload: vi.fn(),
+      postTranscribe: vi.fn(),
     },
   };
 });
@@ -42,7 +42,7 @@ describe('UploadForm', () => {
   it('emits transcript event on successful upload', async () => {
     const mockResponse = { transcript: 'Hello, how are you?' };
     vi.mocked(
-      generatedClient.TranscriptionService.postUpload
+      generatedClient.TranscriptionService.postTranscribe
     ).mockResolvedValue(mockResponse as any);
 
     const wrapper = mount(UploadForm);
@@ -78,13 +78,13 @@ describe('UploadForm', () => {
         body: { error: 'Method not allowed' },
         status: 405,
         statusText: 'Method Not Allowed',
-        url: '/upload',
+        url: '/transcribe',
       },
       'Method Not Allowed'
     );
 
     vi.mocked(
-      generatedClient.TranscriptionService.postUpload
+      generatedClient.TranscriptionService.postTranscribe
     ).mockRejectedValue(mockError);
 
     const wrapper = mount(UploadForm);

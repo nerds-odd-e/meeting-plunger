@@ -41,7 +41,7 @@
                 }
             }
         },
-        "/upload": {
+        "/transcribe": {
             "post": {
                 "description": "Accepts an audio file and returns its transcription",
                 "consumes": [
@@ -53,7 +53,7 @@
                 "tags": [
                     "transcription"
                 ],
-                "summary": "Upload audio file for transcription",
+                "summary": "Transcribe audio file",
                 "parameters": [
                     {
                         "type": "file",

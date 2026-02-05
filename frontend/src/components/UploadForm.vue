@@ -37,7 +37,7 @@ const handleSubmit = async () => {
   const file = fileInput.value.files[0];
 
   try {
-    const response = await TranscriptionService.postUpload({ file });
+    const response = await TranscriptionService.postTranscribe({ file });
     emit('transcript', response.transcript || '');
   } catch (error) {
     if (error instanceof ApiError) {
