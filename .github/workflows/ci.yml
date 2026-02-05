@@ -120,6 +120,8 @@ jobs:
       - name: Run e2e tests
         working-directory: e2e
         run: pnpm exec cucumber-js --tags "not @wip" --import 'steps/*.ts' --import 'support/*.ts'
+        env:
+          NODE_OPTIONS: '--import tsx/esm'
 
       - name: Stop services
         if: always()
