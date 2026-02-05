@@ -12,6 +12,6 @@
     "resolveJsonModule": true,
     "types": ["node", "@cucumber/cucumber", "@playwright/test"]
   },
-  "include": ["steps/**/*", "support/**/*"],
+  "include": ["steps/**/*", "support/**/*", "pages/**/*"],
   "exclude": ["node_modules"]
 }
