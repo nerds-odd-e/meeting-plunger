@@ -5,7 +5,9 @@ import * as generatedClient from '../generated/client';
 
 // Spy on the module
 vi.mock('../generated/client', async () => {
-  const actual = await vi.importActual<typeof generatedClient>('../generated/client');
+  const actual = await vi.importActual<typeof generatedClient>(
+    '../generated/client'
+  );
   return {
     ...actual,
     TranscriptionService: {
@@ -39,7 +41,9 @@ describe('UploadForm', () => {
 
   it('emits transcript event on successful upload', async () => {
     const mockResponse = { transcript: 'Hello, how are you?' };
-    vi.mocked(generatedClient.TranscriptionService.postUpload).mockResolvedValue(mockResponse as any);
+    vi.mocked(
+      generatedClient.TranscriptionService.postUpload
+    ).mockResolvedValue(mockResponse as any);
 
     const wrapper = mount(UploadForm);
 
@@ -76,10 +80,12 @@ describe('UploadForm', () => {
         statusText: 'Method Not Allowed',
         url: '/upload',
       },
-      'Method Not Allowed',
+      'Method Not Allowed'
     );
 
-    vi.mocked(generatedClient.TranscriptionService.postUpload).mockRejectedValue(mockError);
+    vi.mocked(
+      generatedClient.TranscriptionService.postUpload
+    ).mockRejectedValue(mockError);
 
     const wrapper = mount(UploadForm);
 

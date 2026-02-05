@@ -1,0 +1,12 @@
+# Generated code
+src/generated/**
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Coverage
+coverage/

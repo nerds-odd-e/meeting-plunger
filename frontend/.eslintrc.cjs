@@ -16,6 +16,9 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
+  ignorePatterns: [
+    'src/generated/**',
+  ],
   rules: {
     'vue/multi-word-component-names': 'off',
   },
