@@ -28,6 +28,7 @@
     "format:frontend": "cd frontend && pnpm format",
     "format:e2e": "cd e2e && pnpm format",
     "generate:openapi": "scripts/generate-client-openapi.sh",
+    "generate:api": "pnpm generate:openapi && cd frontend && pnpm generate:client",
     "validate:openapi": "scripts/validate-api-generation.sh"
   },
   "keywords": [
