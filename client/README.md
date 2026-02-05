@@ -1,6 +1,6 @@
 # Client (Golang)
 
-Golang CLI and HTTP server for Meeting Plunger.
+Golang CLI and API server for Meeting Plunger. The client bridges communication between the frontend (Vue.js) and backend (Python).
 
 ## Development
 
@@ -49,10 +49,23 @@ When you change a `.go` file:
 4. Starts the new binary with `serve` argument
 5. Server is ready in ~1-2 seconds
 
+## Architecture
+
+**Request Flow:**
+```
+Frontend (Vue :3000) → Client (Go :3001) → Backend (Python :8000) → OpenAI API
+```
+
+The client API server runs on port 3001 and:
+- Receives requests from the frontend
+- Handles file uploads
+- Communicates with the backend API
+- Returns transcription results
+
 ## Endpoints
 
-- **GET /** - HTML client interface
 - **GET /health** - Health check endpoint
+- **POST /upload** - Upload audio file for transcription (returns hardcoded response for now)
 
 ## Commands
 

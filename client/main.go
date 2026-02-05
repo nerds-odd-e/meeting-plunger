@@ -21,11 +21,10 @@ func main() {
 }
 
 func startHTTPServer() {
-	http.HandleFunc("/", HandleRoot)
 	http.HandleFunc("/health", HandleHealth)
 	http.HandleFunc("/upload", HandleUpload)
 
-	port := ":3000"
-	fmt.Printf("Starting local HTTP server on http://localhost%s\n", port)
+	port := ":3001"
+	fmt.Printf("Starting client API server on http://localhost%s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
