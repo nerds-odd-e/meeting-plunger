@@ -29,7 +29,7 @@
     "format:e2e": "cd e2e && pnpm format",
     "generate:openapi": "scripts/generate-client-openapi.sh",
     "generate:api": "pnpm generate:openapi && cd frontend && pnpm generate:client",
-    "validate:openapi": "scripts/validate-api-generation.sh"
+    "validate:api": "scripts/validate-api-generation.sh"
   },
   "keywords": [
     "meeting",

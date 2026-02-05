@@ -32,7 +32,7 @@ nix develop -c pnpm generate:openapi
 
 **Validate (CI check):**
 ```bash
-nix develop -c pnpm validate:openapi
+nix develop -c pnpm validate:api
 ```
 
 **Example annotations in `client/handlers.go`:**
@@ -132,16 +132,16 @@ export interface components {
    - Converts Swagger 2.0 to OpenAPI 3.0
    - Generates `frontend/src/generated/client/types.ts` from OpenAPI spec
    
-3. **Validate OpenAPI spec is up to date** (optional, CI will check):
+3. **Validate generated files are up to date** (optional, CI will check):
    ```bash
-   nix develop -c pnpm validate:openapi
+   nix develop -c pnpm validate:api
    ```
 4. **Commit all changes:**
    - Go code changes (`client/*.go`)
    - Generated OpenAPI spec (`client/generated/openapi.json`)
-   - Frontend types are gitignored (regenerated on demand)
+   - Generated TypeScript types (`frontend/src/generated/client/types.ts`)
 
-**Note:** CI will automatically validate that the generated OpenAPI spec matches the code. If you forget to regenerate after modifying the API, the CI build will fail with a helpful diff.
+**Note:** CI will automatically validate that both the OpenAPI spec and frontend types match the code. If you forget to regenerate after modifying the API, the CI build will fail with a helpful diff showing exactly what's out of sync.
 
 ### When Using API Types
 
@@ -194,10 +194,12 @@ type HealthResponse struct {
 
 ## Benefits
 
-1. **Type Safety:** Catch API contract violations at compile time
+1. **Type Safety:** Catch API contract violations at compile time in both Go and TypeScript
 2. **Single Source of Truth:** Go code is the authoritative API definition
-3. **Documentation:** OpenAPI spec serves as API documentation
-4. **Tooling:** Can generate clients, mocks, validators, etc.
+3. **CI Validation:** Automatically validates both OpenAPI spec and TypeScript types are in sync
+4. **Documentation:** OpenAPI spec serves as API documentation
+5. **Developer Experience:** IntelliSense and autocomplete for all API calls
+6. **Refactoring Safety:** Rename or change an API, and TypeScript compiler catches all usage sites
 
 ## File Locations
 
@@ -206,7 +208,13 @@ type HealthResponse struct {
 | `client/handlers.go` | Go handlers with swag annotations | ✅ Yes |
 | `client/main.go` | Main API metadata annotations | ✅ Yes |
 | `client/generated/openapi.json` | Generated OpenAPI spec (Swagger 2.0) | ✅ Yes |
-| `frontend/src/generated/client/types.ts` | Generated TypeScript types | ❌ No (gitignored) |
+| `frontend/src/generated/client/types.ts` | Generated TypeScript types | ✅ Yes |
+
+**Why commit generated files?**
+- Ensures everyone (developers, CI, production) uses the same types
+- CI can validate that generated files are up to date
+- Prevents runtime type mismatches
+- Enables code review of API changes through type diffs
 
 ## Toolchain
 

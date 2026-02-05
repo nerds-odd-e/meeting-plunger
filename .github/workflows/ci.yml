@@ -57,6 +57,10 @@ jobs:
       - name: Install swag for OpenAPI generation
         run: go install github.com/swaggo/swag/cmd/swag@latest
 
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: pnpm install
+
       - name: Install e2e dependencies
         working-directory: e2e
         run: pnpm install
@@ -66,7 +70,7 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       # Validate generated files are up to date
-      - name: Validate OpenAPI spec is up to date
+      - name: Validate API generated files are up to date
         run: ./scripts/validate-api-generation.sh
 
       # Lint

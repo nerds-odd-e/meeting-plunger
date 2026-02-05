@@ -88,7 +88,7 @@ Check if the generated spec is up to date (used in CI):
 
 ```bash
 # From project root
-nix develop -c pnpm validate:openapi
+nix develop -c pnpm validate:api
 
 # Or run the script directly
 ./scripts/validate-api-generation.sh
