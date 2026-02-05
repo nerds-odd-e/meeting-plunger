@@ -4,12 +4,12 @@
   "description": "E2E tests for Meeting Plunger using Playwright and Cucumber",
   "type": "module",
   "scripts": {
-    "test": "cucumber-js --import 'steps/*.js' --import 'support/*.js'",
-    "test:headed": "HEADED=true cucumber-js --import 'steps/*.js' --import 'support/*.js'",
-    "test:debug": "PWDEBUG=1 cucumber-js --import 'steps/*.js' --import 'support/*.js'",
-    "test:ui": "cucumber-js features/client-ui.feature --import 'steps/*.js' --import 'support/*.js'",
-    "test:health": "cucumber-js features/health-check.feature --import 'steps/*.js' --import 'support/*.js'",
-    "dry-run": "cucumber-js --dry-run --import 'steps/*.js' --import 'support/*.js'",
+    "test": "NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
+    "test:headed": "HEADED=true NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
+    "test:debug": "PWDEBUG=1 NODE_OPTIONS='--import tsx/esm' cucumber-js --import 'steps/*.ts' --import 'support/*.ts'",
+    "test:ui": "NODE_OPTIONS='--import tsx/esm' cucumber-js features/client-ui.feature --import 'steps/*.ts' --import 'support/*.ts'",
+    "test:health": "NODE_OPTIONS='--import tsx/esm' cucumber-js features/health-check.feature --import 'steps/*.ts' --import 'support/*.ts'",
+    "dry-run": "NODE_OPTIONS='--import tsx/esm' cucumber-js --dry-run --import 'steps/*.ts' --import 'support/*.ts'",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
@@ -22,8 +22,13 @@
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.51.1",
-    "playwright": "^1.51.1",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^9.18.0",
-    "prettier": "^3.4.2"
+    "playwright": "^1.51.1",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }

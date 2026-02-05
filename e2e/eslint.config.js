@@ -1,3 +1,6 @@
+import tseslint from '@typescript-eslint/eslint-plugin';
+import parser from '@typescript-eslint/parser';
+
 export default [
   {
     ignores: [
@@ -12,7 +15,9 @@ export default [
     ],
   },
   {
+    files: ['**/*.ts'],
     languageOptions: {
+      parser: parser,
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
@@ -23,8 +28,11 @@ export default [
         __filename: 'readonly',
       },
     },
+    plugins: {
+      '@typescript-eslint': tseslint,
+    },
     rules: {
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': 'off',
     },
   },

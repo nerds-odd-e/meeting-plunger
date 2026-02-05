@@ -32,11 +32,12 @@ e2e/
 ├── features/           # Gherkin feature files
 │   ├── health-check.feature
 │   └── client-ui.feature
-├── steps/              # Step definitions
-│   ├── health-check.steps.js
-│   └── client-ui.steps.js
+├── steps/              # Step definitions (TypeScript)
+│   ├── health-check.steps.ts
+│   └── client-ui.steps.ts
 ├── support/            # Support files
-│   └── world.js       # Custom world with Playwright setup
+│   └── world.ts       # Custom world with Playwright setup
+├── tsconfig.json       # TypeScript configuration
 └── package.json        # Dependencies and test scripts
 ```
 
@@ -58,33 +59,39 @@ Feature: My Feature
 
 ## Writing Step Definitions
 
-Step definitions are JavaScript files in `e2e/steps/`:
+Step definitions are TypeScript files in `e2e/steps/`:
 
-```javascript
+```typescript
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
+import { CustomWorld } from '../support/world.js';
 
-Given('some precondition', async function () {
+Given('some precondition', async function (this: CustomWorld) {
   // Setup code
 });
 
-When('I perform an action', async function () {
+When('I perform an action', async function (this: CustomWorld) {
   // Action code using this.page
+  if (!this.page) throw new Error('Page is not initialized');
+  await this.page.goto('http://example.com');
 });
 
-Then('I should see the result', async function () {
+Then('I should see the result', async function (this: CustomWorld) {
   // Assertion using expect
+  if (!this.page) throw new Error('Page is not initialized');
+  await expect(this.page.locator('text=Result')).toBeVisible();
 });
 ```
 
 ## Available Context
 
-In step definitions, you have access to:
+In step definitions (via `this: CustomWorld`), you have access to:
 
-- `this.browser` - Playwright browser instance
-- `this.context` - Playwright browser context
-- `this.page` - Playwright page instance
-- `this.response` - Last HTTP response (if any)
+- `this.browser` - Playwright browser instance (Browser | null)
+- `this.context` - Playwright browser context (BrowserContext | null)
+- `this.page` - Playwright page instance (Page | null)
+- `this.response` - Last HTTP response (APIResponse | null)
+- `this.baseUrl` - Optional base URL (string | undefined)
 
 ## Reports
 

@@ -1,15 +1,22 @@
-import { setWorldConstructor, Before, After } from '@cucumber/cucumber';
-import { chromium } from 'playwright';
+import { setWorldConstructor, Before, After, World } from '@cucumber/cucumber';
+import { Browser, BrowserContext, Page, chromium, APIResponse } from 'playwright';
 
-class CustomWorld {
-  constructor() {
+export class CustomWorld extends World {
+  browser: Browser | null;
+  context: BrowserContext | null;
+  page: Page | null;
+  response: APIResponse | null;
+  baseUrl?: string;
+
+  constructor(options: any) {
+    super(options);
     this.browser = null;
     this.context = null;
     this.page = null;
     this.response = null;
   }
 
-  async init() {
+  async init(): Promise<void> {
     const headed = process.env.HEADED === 'true';
     this.browser = await chromium.launch({
       headless: !headed,
@@ -19,7 +26,7 @@ class CustomWorld {
     this.page = await this.context.newPage();
   }
 
-  async cleanup() {
+  async cleanup(): Promise<void> {
     if (this.page) await this.page.close();
     if (this.context) await this.context.close();
     if (this.browser) await this.browser.close();
@@ -28,10 +35,10 @@ class CustomWorld {
 
 setWorldConstructor(CustomWorld);
 
-Before(async function () {
+Before(async function (this: CustomWorld) {
   await this.init();
 });
 
-After(async function () {
+After(async function (this: CustomWorld) {
   await this.cleanup();
 });
