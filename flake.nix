@@ -10,24 +10,12 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        
-        # Python with FastAPI and common dependencies
-        pythonEnv = pkgs.python311.withPackages (ps: with ps; [
-          fastapi
-          uvicorn
-          pydantic
-          httpx
-          pytest
-          pytest-asyncio
-          python-multipart
-          python-dotenv
-        ]);
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            # Python environment
-            pythonEnv
+            # Python (dependencies managed via pip + venv)
+            python311
             
             # Golang
             go
@@ -57,7 +45,12 @@
             if [[ "$PS1" != *"(nix)"* ]]; then
               export PS1="(nix) $PS1"
             fi
-            
+
+            # Activate Python venv if it exists
+            if [ -d .venv ]; then
+              source .venv/bin/activate
+            fi
+
             echo "🚀 Meeting Plunger Development Environment"
             echo ""
             echo "Available tools:"
@@ -74,6 +67,7 @@
             echo ""
             echo "First time setup:"
             echo "  pnpm install && pnpm e2e:install"
+            echo "  python -m venv .venv && source .venv/bin/activate && pip install -r backend/requirements.txt"
             echo ""
             echo "More info: docs/QUICK_START.md"
             
