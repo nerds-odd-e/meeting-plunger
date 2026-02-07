@@ -6,22 +6,8 @@ from config import OPENAI_API_KEY
 
 app = FastAPI(title="Meeting Plunger API")
 
-# Lazy initialization of OpenAI client (only when first accessed)
-# This allows importing the module without requiring OPENAI_API_KEY
-_openai_client = None
-
-
-def get_openai_client() -> OpenAI:
-    """Get or initialize the OpenAI client."""
-    global _openai_client
-    if _openai_client is None:
-        if not OPENAI_API_KEY:
-            raise ValueError(
-                "OPENAI_API_KEY not found in environment variables. "
-                "Please create a .env file in the backend directory with your OpenAI API key."
-            )
-        _openai_client = OpenAI(api_key=OPENAI_API_KEY)
-    return _openai_client
+# Initialize OpenAI client
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Configure CORS for local development
 app.add_middleware(
