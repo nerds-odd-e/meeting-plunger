@@ -75,6 +75,8 @@ jobs:
       # Validate generated files are up to date
       - name: Validate API generated files are up to date
         run: ./scripts/validate-api-generation.sh
+        env:
+          OPENAI_API_KEY: fake_openai_token
 
       # Lint
       - name: Lint all code
@@ -84,6 +86,8 @@ jobs:
       - name: Run backend unit tests
         working-directory: backend
         run: pnpm test
+        env:
+          OPENAI_API_KEY: fake_openai_token
 
       - name: Run local-service unit tests
         working-directory: local-service
@@ -101,6 +105,7 @@ jobs:
           echo $! > backend.pid
         env:
           PYTHONUNBUFFERED: '1'
+          OPENAI_API_KEY: fake_openai_token
 
       - name: Start local-service
         working-directory: local-service
