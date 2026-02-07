@@ -1,7 +1,13 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from openai import OpenAI
+
+from config import OPENAI_API_KEY
 
 app = FastAPI(title="Meeting Plunger API")
+
+# Initialize OpenAI client
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Configure CORS for local development
 app.add_middleware(
