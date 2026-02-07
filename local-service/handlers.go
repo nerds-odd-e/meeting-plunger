@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"os"
 
-	"local-service/generated/backend_client"
+	backendclient "local-service/generated/backend_client"
 )
 
 // HealthResponse represents the health check response

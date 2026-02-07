@@ -39,6 +39,43 @@ Before(async function (this: CustomWorld) {
   await this.init();
 });
 
+// Hook for scenarios with @useMockedOpenAIServiceInBackend tag
+Before({ tags: '@useMockedOpenAIServiceInBackend' }, async function (this: CustomWorld) {
+  // Call backend testability endpoint to enable mock
+  const response = await fetch('http://localhost:8000/testability/mock', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      enabled: true,
+      transcript: 'Please be very quiet.',
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to enable mock: ${response.status}`);
+  }
+});
+
+After({ tags: '@useMockedOpenAIServiceInBackend' }, async function (this: CustomWorld) {
+  // Call backend testability endpoint to disable mock
+  const response = await fetch('http://localhost:8000/testability/mock', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      enabled: false,
+      transcript: '',
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to disable mock: ${response.status}`);
+  }
+});
+
 After(async function (this: CustomWorld) {
   await this.cleanup();
 });
